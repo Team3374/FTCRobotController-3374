@@ -1,13 +1,25 @@
 package org.firstinspires.ftc.robot.subsystems;
 
 
+import com.arcrobotics.ftclib.command.Command;
+import com.arcrobotics.ftclib.command.InstantCommand;
+import com.arcrobotics.ftclib.command.OdometrySubsystem;
+import com.arcrobotics.ftclib.command.PurePursuitCommand;
 import com.arcrobotics.ftclib.command.SubsystemBase;
 import com.arcrobotics.ftclib.drivebase.MecanumDrive;
+import com.arcrobotics.ftclib.geometry.Translation2d;
 import com.arcrobotics.ftclib.hardware.GyroEx;
 import com.arcrobotics.ftclib.hardware.RevIMU;
 import com.arcrobotics.ftclib.hardware.motors.Motor;
 import com.arcrobotics.ftclib.hardware.motors.Motor.Encoder;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
+import com.arcrobotics.ftclib.kinematics.HolonomicOdometry;
+import com.arcrobotics.ftclib.kinematics.Odometry;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveKinematics;
+import com.arcrobotics.ftclib.kinematics.wpilibkinematics.MecanumDriveOdometry;
+import com.arcrobotics.ftclib.purepursuit.waypoints.EndWaypoint;
+import com.arcrobotics.ftclib.purepursuit.waypoints.GeneralWaypoint;
+import com.arcrobotics.ftclib.purepursuit.waypoints.StartWaypoint;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robot.Constants;
@@ -31,6 +43,18 @@ public class DrivetrainSubsystem extends SubsystemBase {
     private RevIMU IMU;
 
     private Encoder m_leftF, m_rightF, m_leftB, m_rightB;
+
+//    private final MecanumDriveKinematics m_kinematics = new MecanumDriveKinematics(
+//            new Translation2d(12.0/2.0,18.0/2.0),
+//            new Translation2d(12.0/2.0,-18.0/2.0),
+//            new Translation2d(-12.0/2.0,18.0/2.0),
+//            new Translation2d(-12.0/2.0,-18.0/2.0));
+//
+//    private MecanumDriveOdometry m_robotOdometry;
+//
+//    private HolonomicOdometry m_holonomicOdometry;
+//
+//    private OdometrySubsystem m_odometry;
 
     private double gyroOffset;
 
@@ -71,6 +95,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
                 frd,
                 bld,
                 brd);
+
+//        m_robotOdometry = new MecanumDriveOdometry(m_kinematics, IMU.getRotation2d());
+//        m_holonomicOdometry = new HolonomicOdometry(m_robotOdometry.getPoseMeters(),12.0,0);
+//        m_odometry = new OdometrySubsystem(m_holonomicOdometry);
     }
 
     /**
@@ -137,6 +165,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
         m_leftB.reset();
         m_rightB.reset();
     }
+
+//    public Command createCommandForTrajectory() {
+//        PurePursuitCommand ppCommand = new PurePursuitCommand(
+//                m_drive, m_odometry,
+//                new StartWaypoint(0, 0),
+//                new GeneralWaypoint(200, 0, 0.8, 0.8, 30),
+//                new EndWaypoint(
+//                        400, 0, 0, 0.5,
+//                        0.5, 30, 0.8, 1
+//                )
+//        );
+//        return ppCommand.andThen(new InstantCommand(() -> robotCentricDrive(0.0,0.0,0.0)));
+//    }
 
     public double getAverageEncoderDistance() {
         return (getLeftEncoderDistance() + getRightEncoderDistance()) / 2.0;

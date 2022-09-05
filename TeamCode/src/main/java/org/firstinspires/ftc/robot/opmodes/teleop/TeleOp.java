@@ -28,9 +28,11 @@ public class TeleOp extends CommandOpMode {
     @Override
     public void initialize() {
 
+        //initalize hardware
         m_drive.init(hardwareMap);
 
         m_driverOp = new GamepadEx(gamepad1);
+
 
         register(m_drive);
 
@@ -40,26 +42,21 @@ public class TeleOp extends CommandOpMode {
                 () -> modifyAxis(m_driverOp.getRightX())));
 
         configureButtonBindings();
-        printToTelemetry();
 
     }
 
     private void configureButtonBindings() {
-//        new GamepadButton(m_driverOp, GamepadKeys.Button.A).toggleWhenPressed(new FieldCentricDriveCommand(m_drive,
-//                () -> modifyAxis(m_driverOp.getLeftY()),
-//                () -> modifyAxis(m_driverOp.getLeftX()),
-//                () -> modifyAxis(m_driverOp.getRightX()),
-//                () -> m_drive.getRawHeading()));
+        new GamepadButton(m_driverOp, GamepadKeys.Button.A).toggleWhenPressed(new FieldCentricDriveCommand(m_drive,
+                () -> modifyAxis(m_driverOp.getLeftY()),
+                () -> modifyAxis(m_driverOp.getLeftX()),
+                () -> modifyAxis(m_driverOp.getRightX()),
+                () -> m_drive.getRawHeading()));
 
         new GamepadButton(m_driverOp, GamepadKeys.Button.Y).toggleWhenPressed(new InstantCommand(
                                                             () -> m_drive.resetGyro()));
 
     }
 
-    private void printToTelemetry(){
-        telemetry.addData("Current Rotation", "m_drive.getHeading()");
-        // telemetry.addData("Raw Heading", m_drive.getRawHeading());
-    }
 
     private static double deadband(double value, double deadband) {
         if (Math.abs(value) > deadband) {
