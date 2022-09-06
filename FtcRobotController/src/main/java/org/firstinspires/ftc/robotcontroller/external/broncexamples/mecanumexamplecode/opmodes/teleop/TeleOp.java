@@ -23,7 +23,7 @@ public class TeleOp extends CommandOpMode {
     static final double WHEEL_DIAMETER = 100.0; // millimeters
 
 
-    private DrivetrainSubsystem m_drive = DrivetrainSubsystem.getInstance();
+    private final DrivetrainSubsystem m_drive = DrivetrainSubsystem.getInstance();
     private GamepadEx m_driverOp;
 
     @Override
