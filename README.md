@@ -1,6 +1,6 @@
 ## NOTICE
 
-This repository contains the FRC 3374's FTC SDK for the Freight Frenzy (2021-2022) offseason.
+This repository contains the FRC 3374's FTC SDK for the PowerPlay (2022-2023) offseason.
 
 ## Welcome!
 
