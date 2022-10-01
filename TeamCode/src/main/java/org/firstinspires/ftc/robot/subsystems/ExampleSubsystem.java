@@ -1,7 +1,11 @@
 package org.firstinspires.ftc.robot.subsystems;
 
 import com.arcrobotics.ftclib.command.SubsystemBase;
+import com.arcrobotics.ftclib.hardware.motors.Motor;
+import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robot.Ports;
 
 /**
  * A gripper mechanism that grabs a stone from the quarry.
@@ -20,11 +24,20 @@ public class ExampleSubsystem extends SubsystemBase {
         return my_instance;
     }
 
+    private Motor exampleMoter;
+
 
     public ExampleSubsystem() {}
 
     public void init(HardwareMap hardwareMap){
         // use this function to hardware map and set up hardware
+        exampleMoter = new Motor(hardwareMap, Ports.EXAMPLE_MOTOR);
+
+        exampleMoter.setRunMode(Motor.RunMode.RawPower);
+    }
+
+    public void spinMotor(double power){
+        exampleMoter.set(power);
     }
 
 

@@ -28,7 +28,7 @@ public class TeleOp extends CommandOpMode {
         register(m_subsystem);
 
         //set default commands for each subsystem
-        m_subsystem.setDefaultCommand(new ExampleCommand(m_subsystem));
+        m_subsystem.setDefaultCommand(new ExampleCommand(m_subsystem, () -> modifyAxis(m_driverOp.getLeftY()))); // sets the default control of the motor to the left stick
 
         configureButtonBindings();
 
@@ -36,7 +36,8 @@ public class TeleOp extends CommandOpMode {
 
     private void configureButtonBindings() {
         // set what happens when a button is pressed
-        new GamepadButton(m_driverOp, GamepadKeys.Button.A).toggleWhenPressed(new ExampleCommand(m_subsystem));
+
+        new GamepadButton(m_driverOp, GamepadKeys.Button.A).toggleWhenPressed(new ExampleCommand(m_subsystem, () -> 0.5)); // spins motor at 50% power when a is pressed
 
     }
 
